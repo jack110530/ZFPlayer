@@ -99,6 +99,9 @@
 
 @property (nonatomic, assign) CGSize thumbSize;
 
+/// 是否只能回退，不能前进
+@property (nonatomic, assign) BOOL onlyBackForword;
+
 /**
  *  Starts animation of the spinner.
  */

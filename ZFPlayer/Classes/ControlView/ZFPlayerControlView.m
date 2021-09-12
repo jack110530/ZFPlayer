@@ -76,6 +76,9 @@
 
 @property (nonatomic, strong) UIView *effectView;
 
+// 是否向前快进
+@property (nonatomic, assign) BOOL isForword;
+
 @end
 
 @implementation ZFPlayerControlView
@@ -243,7 +246,7 @@
 }
 
 /// 音量改变的通知
-- (void)volumeChanged:(NSNotification *)notification {    
+- (void)volumeChanged:(NSNotification *)notification {
     NSDictionary *userInfo = notification.userInfo;
     NSString *reasonstr = userInfo[@"AVSystemController_AudioVolumeChangeReasonNotificationParameter"];
     if ([reasonstr isEqualToString:@"ExplicitVolumeChange"]) {
@@ -377,6 +380,11 @@
 /// 滑动中手势事件
 - (void)gestureChangedPan:(ZFPlayerGestureControl *)gestureControl panDirection:(ZFPanDirection)direction panLocation:(ZFPanLocation)location withVelocity:(CGPoint)velocity {
     if (direction == ZFPanDirectionH) {
+        self.isForword = NO;
+        if ((velocity.x > 0) && self.onlyBackForword) {
+            self.isForword = YES;
+            return;
+        }
         // 每次滑动需要叠加时间
         self.sumTime += velocity.x / 200;
         // 需要限定sumTime的范围
@@ -406,6 +414,9 @@
 - (void)gestureEndedPan:(ZFPlayerGestureControl *)gestureControl panDirection:(ZFPanDirection)direction panLocation:(ZFPanLocation)location {
     @zf_weakify(self)
     if (direction == ZFPanDirectionH && self.sumTime >= 0 && self.player.totalTime > 0) {
+        if (self.isForword && self.onlyBackForword) {
+            return;
+        }
         [self.player seekToTime:self.sumTime completionHandler:^(BOOL finished) {
             if (finished) {
                 @zf_strongify(self)
@@ -653,6 +664,14 @@
     self.landScapeControlView.fullScreenMode = fullScreenMode;
     self.player.orientationObserver.fullScreenMode = fullScreenMode;
 }
+
+- (void)setOnlyBackForword:(BOOL)onlyBackForword {
+    _onlyBackForword = onlyBackForword;
+    self.fastProgressView.onlyBackForword = onlyBackForword;
+    self.portraitControlView.onlyBackForword = onlyBackForword;
+    self.landScapeControlView.onlyBackForword = onlyBackForword;
+}
+
 
 #pragma mark - getter
 

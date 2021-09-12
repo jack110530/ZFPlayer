@@ -338,6 +338,9 @@ static const CGFloat kAnimate = 0.3;
 }
 
 - (void)sliderBtnTouchEnded:(UIButton *)btn {
+    if (self.isForward && self.onlyBackForword) {
+        return;
+    }
     if ([self.delegate respondsToSelector:@selector(sliderTouchEnded:)]) {
         [self.delegate sliderTouchEnded:self.value];
     }
@@ -357,6 +360,9 @@ static const CGFloat kAnimate = 0.3;
     value = value >= 1.0 ? 1.0 : value <= 0.0 ? 0.0 : value;
     if (self.value == value) return;
     self.isForward = self.value < value;
+    if (self.isForward && self.onlyBackForword) {
+        return;
+    }
     self.value = value;
     if ([self.delegate respondsToSelector:@selector(sliderValueChanged:)]) {
         [self.delegate sliderValueChanged:value];

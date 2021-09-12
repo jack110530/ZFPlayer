@@ -42,7 +42,7 @@
 @property (nonatomic, strong) UIView *bottomToolView;
 /// 播放或暂停按钮
 @property (nonatomic, strong) UIButton *playOrPauseBtn;
-/// 播放的当前时间 
+/// 播放的当前时间
 @property (nonatomic, strong) UILabel *currentTimeLabel;
 /// 滑杆
 @property (nonatomic, strong) ZFSliderView *slider;
@@ -93,7 +93,7 @@
     CGFloat min_view_w = self.bounds.size.width;
     CGFloat min_view_h = self.bounds.size.height;
     
-    CGFloat min_margin = 9; 
+    CGFloat min_margin = 9;
     
     min_x = 0;
     min_y = 0;
@@ -369,6 +369,11 @@
     _fullScreenMode = fullScreenMode;
     self.player.orientationObserver.fullScreenMode = fullScreenMode;
     self.lockBtn.hidden = fullScreenMode == ZFFullScreenModePortrait;
+}
+
+- (void)setOnlyBackForword:(BOOL)onlyBackForword {
+    _onlyBackForword = onlyBackForword;
+    self.slider.onlyBackForword = onlyBackForword;
 }
 
 #pragma mark - getter

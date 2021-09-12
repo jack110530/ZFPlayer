@@ -40,7 +40,7 @@
 @property (nonatomic, strong) UILabel *titleLabel;
 /// 播放或暂停按钮
 @property (nonatomic, strong) UIButton *playOrPauseBtn;
-/// 播放的当前时间 
+/// 播放的当前时间
 @property (nonatomic, strong) UILabel *currentTimeLabel;
 /// 滑杆
 @property (nonatomic, strong) ZFSliderView *slider;
@@ -219,7 +219,7 @@
     self.currentTimeLabel.text = currentTimeString;
 }
 
-#pragma mark - public method 
+#pragma mark - public method
 
 /** 重置ControlView */
 - (void)resetControlView {
@@ -303,6 +303,11 @@
 - (void)setFullScreenMode:(ZFFullScreenMode)fullScreenMode {
     _fullScreenMode = fullScreenMode;
     self.player.orientationObserver.fullScreenMode = fullScreenMode;
+}
+
+- (void)setOnlyBackForword:(BOOL)onlyBackForword {
+    _onlyBackForword = onlyBackForword;
+    self.slider.onlyBackForword = onlyBackForword;
 }
 
 #pragma mark - getter

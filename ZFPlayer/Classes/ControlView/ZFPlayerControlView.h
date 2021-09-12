@@ -113,6 +113,9 @@
 /// 全屏模式
 @property (nonatomic, assign) ZFFullScreenMode fullScreenMode;
 
+/// 是否只能回退，不能前进
+@property (nonatomic, assign) BOOL onlyBackForword;
+
 /**
  设置标题、封面、全屏模式
 

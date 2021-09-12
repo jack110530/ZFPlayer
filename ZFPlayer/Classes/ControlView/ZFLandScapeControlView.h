@@ -46,7 +46,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 底部工具栏
 @property (nonatomic, strong, readonly) UIView *bottomToolView;
 
-/// 播放或暂停按钮 
+/// 播放或暂停按钮
 @property (nonatomic, strong, readonly) UIButton *playOrPauseBtn;
 
 /// 播放的当前时间
@@ -78,6 +78,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 全屏模式
 @property (nonatomic, assign) ZFFullScreenMode fullScreenMode;
+
+/// 是否只能回退，不能前进
+@property (nonatomic, assign) BOOL onlyBackForword;
 
 /// 重置控制层
 - (void)resetControlView;
